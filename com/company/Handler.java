@@ -7,25 +7,21 @@ import java.util.LinkedList;
 public class Handler {
     // loop over all objects, update them and put them on screen
 
-    LinkedList<GameObject> object = new LinkedList<GameObject>();
+    private LinkedList<GameObject> object = new LinkedList<>();
 
-    public void tick() {
-        for(int i = 0; i < object.size(); i++) {
-            GameObject tempObject = object.get(i);
-
+    void tick() {
+        for (GameObject tempObject : object) {
             tempObject.tick();
         }
     }
 
-    public void render(Graphics g) {
-        for(int i = 0; i < object.size(); i++) {
-            GameObject tempObject = object.get(i);
-
+    void render(Graphics g) {
+        for (GameObject tempObject : object) {
             tempObject.render(g);
         }
     }
 
-    public void addObject(GameObject object) {
+    void addObject(GameObject object) {
         this.object.add(object);
     }
 

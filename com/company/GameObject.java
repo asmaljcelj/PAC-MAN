@@ -3,14 +3,14 @@ package com.company;
 import java.awt.*;
 
 public abstract class GameObject {
-    protected int x, y;
-    protected ID id;
+    int x, y;
+    private com.company.ID id;
     // protected int velX, velY;
-    protected int velocity;
+    int velocity;
 
-    protected boolean desno;
+    boolean desno;
 
-    public GameObject(int x, int y, ID id) {
+    GameObject(int x, int y, com.company.ID id) {
         this.x = x;
         this.y = y;
         this.id = id;
@@ -33,10 +33,10 @@ public abstract class GameObject {
     public int getY() {
         return this.y;
     }
-    public void setId(ID id) {
+    public void setId(com.company.ID id) {
         this.id = id;
     }
-    public ID getId() {
+    public com.company.ID getId() {
         return this.id;
     }
     public void setVel(int vel) {

@@ -4,29 +4,29 @@ import java.awt.*;
 import java.awt.image.BufferStrategy;
 
 public class Game extends Canvas implements Runnable {
-    public static final int WIDTH = 800;
-    public static final int HEIGHT = 600;
+    private static final int WIDTH = 800;
+    private static final int HEIGHT = 600;
 
     private Thread thread;
     private boolean running = false;
 
-    private Handler handler;
+    private com.company.Handler handler;
 
-    public Game() {
+    private Game() {
         new Window(WIDTH, HEIGHT, "PAC-man", this);
 
-        handler = new Handler();
+        handler = new com.company.Handler();
 
-        handler.addObject(new Player(100, 100, ID.Player));
+        handler.addObject(new com.company.Player(100, 100, com.company.ID.Player));
     }
 
-    public synchronized void start() {
+    synchronized void start() {
         thread = new Thread(this);
         thread.start();
         running = true;
     }
 
-    public synchronized void stop() {
+    private synchronized void stop() {
         try {
             thread.join();
             running = false;

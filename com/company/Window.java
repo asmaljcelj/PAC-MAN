@@ -3,9 +3,9 @@ package com.company;
 import javax.swing.*;
 import java.awt.*;
 
-public class Window extends Canvas {
+class Window extends Canvas {
 
-    public Window(int width, int height, String title, Game game) {
+    Window(int width, int height, String title, com.company.Game game) {
         JFrame frame = new JFrame(title);
 
         frame.setPreferredSize(new Dimension(width, height));
