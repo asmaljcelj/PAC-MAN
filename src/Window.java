@@ -1,12 +1,13 @@
-package com.company;
+package src;
 
 import javax.swing.*;
 import java.awt.*;
 
 class Window extends Canvas {
+    private JFrame frame;
 
-    Window(int width, int height, String title, com.company.Game game) {
-        JFrame frame = new JFrame(title);
+    public Window(int width, int height, String title, Game game) {
+        frame = new JFrame(title);
 
         frame.setPreferredSize(new Dimension(width, height));
         frame.setMaximumSize(new Dimension(width, height));
@@ -18,6 +19,10 @@ class Window extends Canvas {
         frame.add(game);
         frame.setVisible(true);
         game.start();
+    }
+
+    public JFrame getFrame() {
+        return this.frame;
     }
 
 }

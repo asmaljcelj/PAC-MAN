@@ -1,48 +1,53 @@
-package com.company;
+package src;
 
 import java.awt.*;
 
 public abstract class GameObject {
     int x, y;
-    private com.company.ID id;
-    // protected int velX, velY;
-    int velocity;
+    private ID id;
+//     protected int velX, velY;
+    double velocity;
 
-    boolean desno;
-
-    GameObject(int x, int y, com.company.ID id) {
+    GameObject(int x, int y, ID id) {
         this.x = x;
         this.y = y;
         this.id = id;
 
-        this.desno = true;
     }
 
     public abstract void tick();
+
     public abstract void render(Graphics g);
 
     public void setX(int x) {
         this.x = x;
     }
+
     public void setY(int y) {
         this.y = y;
     }
+
     public int getX() {
         return this.x;
     }
+
     public int getY() {
         return this.y;
     }
-    public void setId(com.company.ID id) {
+
+    public void setId(ID id) {
         this.id = id;
     }
-    public com.company.ID getId() {
+
+    public ID getId() {
         return this.id;
     }
-    public void setVel(int vel) {
+
+    public void setVel(double vel) {
         this.velocity = vel;
     }
-    public int getVel() {
+
+    public double getVel() {
         return this.velocity;
     }
     /*public void setVelX(int velX) {

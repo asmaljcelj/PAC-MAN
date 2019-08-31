@@ -1,23 +1,28 @@
-package com.company;
+package src;
+
+import src.PlayerLogic.KeyPressedLogic;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 
 public class Game extends Canvas implements Runnable {
-    private static final int WIDTH = 800;
-    private static final int HEIGHT = 600;
+    private static final int WIDTH = 464;
+    private static final int HEIGHT = 535;
 
     private Thread thread;
     private boolean running = false;
 
-    private com.company.Handler handler;
+    private Handler handler;
 
     private Game() {
-        new Window(WIDTH, HEIGHT, "PAC-man", this);
+        Window gameWindow = new Window(WIDTH, HEIGHT, "PAC-man", this);
 
-        handler = new com.company.Handler();
+        handler = new Handler();
 
-        handler.addObject(new com.company.Player(100, 100, com.company.ID.Player));
+        Player player = new Player(0, 0, ID.Player, gameWindow.getFrame().getContentPane().getWidth(), gameWindow.getFrame().getContentPane().getHeight());
+        this.addKeyListener(new KeyPressedLogic(player));
+
+        handler.addObject(player);
     }
 
     synchronized void start() {

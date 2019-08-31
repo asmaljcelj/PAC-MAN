@@ -1,4 +1,4 @@
-package com.company;
+package src;
 
 import java.awt.*;
 import java.util.LinkedList;
