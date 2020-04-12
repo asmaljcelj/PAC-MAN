@@ -1,6 +1,7 @@
-package src.PlayerLogic;
+package src.playerLogic;
 
 import src.Player;
+import src.enums.DirectionEnum;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -14,23 +15,23 @@ public class KeyPressedLogic implements KeyListener {
 
     @Override
     public void keyTyped(KeyEvent e) {
-
+        // empty because not needed
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_UP:
-                player.setDirection(0);
+                player.setDirection(DirectionEnum.UP);
                 break;
             case KeyEvent.VK_RIGHT:
-                player.setDirection(1);
+                player.setDirection(DirectionEnum.RIGHT);
                 break;
             case KeyEvent.VK_DOWN:
-                player.setDirection(2);
+                player.setDirection(DirectionEnum.DOWN);
                 break;
             case KeyEvent.VK_LEFT:
-                player.setDirection(3);
+                player.setDirection(DirectionEnum.LEFT);
                 break;
         }
     }

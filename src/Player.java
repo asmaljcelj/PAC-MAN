@@ -1,60 +1,57 @@
 package src;
 
+import src.enums.DirectionEnum;
+import src.enums.GridTypeEnum;
+import src.enums.IDEnum;
+import src.map.Cell;
+import src.map.Grid;
+
 import java.awt.*;
 
 public class Player extends GameObject {
-    // direction: 0-up, 1-right, 2-down, 3-left
-    private int direction;
-    private int windowWidth;
-    private int windowHeight;
+    private DirectionEnum direction;
 
-    public Player(int x, int y, ID id, int width, int height) {
-        super(x, y, id);
-        velocity = 0.5;
-        // default direction
-        this.direction = 1;
-        this.windowWidth = width;
-        this.windowHeight = height;
+    public Player(Cell cell, IDEnum idEnum) {
+        super(cell, idEnum, 1);
+        currentCell.setType(GridTypeEnum.PLAYER);
+        this.direction = DirectionEnum.HOLD;
     }
 
     @Override
     public void tick() {
-        int movementIncrement = 8;
+        Cell neighbourCell = currentCell;
         switch (direction) {
-            case 0:
-                if (getY() > 0) {
-                    setY(getY() - movementIncrement);
-                }
+            case UP:
+                neighbourCell = currentCell.getNeighbourCell(DirectionEnum.UP);
                 break;
-            case 1:
-                if (getX() < windowWidth - 16) {
-                    setX(getX() + movementIncrement);
-                }
+            case RIGHT:
+                neighbourCell = currentCell.getNeighbourCell(DirectionEnum.RIGHT);
                 break;
-            case 2:
-                if (getY() < windowHeight - 16) {
-                    setY(getY() + movementIncrement);
-                }
+            case DOWN:
+                neighbourCell = currentCell.getNeighbourCell(DirectionEnum.DOWN);
                 break;
-            case 3:
-                if (getX() > 0) {
-                    setX(getX() - movementIncrement);
-                }
+            case LEFT:
+                neighbourCell = currentCell.getNeighbourCell(DirectionEnum.LEFT);
                 break;
         }
+        setCurrentCell(neighbourCell);
     }
 
     @Override
     public void render(Graphics g) {
+        int row = currentCell.getId() / currentCell.getGrid().getGrid().length;
+        int column = currentCell.getId() % currentCell.getGrid().getGrid()[0].length;
+        System.out.println(row + "     " + column);
+
         g.setColor(Color.RED);
-        g.fillRect(this.x, this.y, 16, 16);
+        g.fillRect(column * Grid.CELL_WIDTH, row * Grid.CELL_HEIGHT, Grid.CELL_WIDTH, Grid.CELL_HEIGHT);
     }
 
-    public void setDirection(int dir) {
-        this.direction = dir;
+    public void setDirection(DirectionEnum direction) {
+        this.direction = direction;
     }
 
-    public int getDirection() {
+    public DirectionEnum getDirection() {
         return this.direction;
     }
 

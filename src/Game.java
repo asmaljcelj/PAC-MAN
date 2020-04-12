@@ -1,13 +1,17 @@
 package src;
 
-import src.PlayerLogic.KeyPressedLogic;
+import src.map.Grid;
+import src.playerLogic.KeyPressedLogic;
+import src.enums.IDEnum;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 
 public class Game extends Canvas implements Runnable {
-    private static final int WIDTH = 464;
-    private static final int HEIGHT = 535;
+    public static final int FRAME_WIDTH = 700;
+    public static final int FRAME_HEIGHT = 700;
+    public static final int COLUMNS = 20;
+    public static final int ROWS = 20;
 
     private Thread thread;
     private boolean running = false;
@@ -15,14 +19,24 @@ public class Game extends Canvas implements Runnable {
     private Handler handler;
 
     private Game() {
-        Window gameWindow = new Window(WIDTH, HEIGHT, "PAC-man", this);
+        Window.createWindow(FRAME_WIDTH, FRAME_HEIGHT, "PAC-man", this);
 
         handler = new Handler();
 
-        Player player = new Player(0, 0, ID.Player, gameWindow.getFrame().getContentPane().getWidth(), gameWindow.getFrame().getContentPane().getHeight());
+        Grid gameGrid = new Grid(ROWS, COLUMNS, calculateSingleCellWidth(), calculateSingleCellHeight());
+
+        Player player = new Player(gameGrid.getSpecificCell(0, 0), IDEnum.Player);
         this.addKeyListener(new KeyPressedLogic(player));
 
         handler.addObject(player);
+    }
+
+    private int calculateSingleCellWidth() {
+        return FRAME_WIDTH / COLUMNS;
+    }
+
+    private int calculateSingleCellHeight() {
+        return FRAME_HEIGHT / ROWS;
     }
 
     synchronized void start() {
@@ -43,8 +57,8 @@ public class Game extends Canvas implements Runnable {
     public void run() {
         // gameloop: copied from Notch
         long lastTime = System.nanoTime();
-        double ammountOfTicks = 60.0;
-        double ns = 1000000000 / ammountOfTicks;
+        double amountOfTicks = 2.0;
+        double ns = 1000000000 / amountOfTicks;
         double delta = 0;
         long timer = System.currentTimeMillis();
         int frames = 0;
@@ -83,7 +97,7 @@ public class Game extends Canvas implements Runnable {
         Graphics g = bs.getDrawGraphics();
 
         g.setColor(Color.BLACK);
-        g.fillRect(0, 0, WIDTH, HEIGHT);
+        g.fillRect(0, 0, FRAME_WIDTH, FRAME_HEIGHT);
 
         handler.render(g);
 
